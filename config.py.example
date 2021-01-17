@@ -1,0 +1,19 @@
+STATEFILE="last"
+
+# Path to git bare repository
+GIT_DIR="repo"
+
+# Upstream branch
+GIT_BRANCH="master"
+
+# OPTIONAL: list of subdirectories to watch
+WATCHDIRS=["bin", "thirdparty"]
+
+# URL pointing to commit
+COMMIT_URL_TEMPLATE="https://github.com/my/project/commit/{0}"
+
+# Matrix credentials
+MATRIX_ROOM="!xxxxxxxxxxxxxxxxxx:matrix.org"
+MATRIX_SERVER="https://example.org"
+MATRIX_USER="@user:example.org"
+MATRIX_PW="xxxx"
