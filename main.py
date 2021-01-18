@@ -51,7 +51,7 @@ async def loop():
                 message_type="m.room.message",
                 content=content
             )
-        time.sleep(20)
+        time.sleep(60 * 5)
 
     f.close()
 
