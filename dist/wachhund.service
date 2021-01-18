@@ -1,0 +1,16 @@
+[Unit]
+Description=Wachhund Matrix Bot service
+
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=wachhund
+Group=wachhund
+WorkingDirectory=/home/wachhund/wachhund
+ExecStart=/home/wachhund/wachhund/env/bin/python3 main.py
+
+[Install]
+WantedBy=multi-user.target
+Alias=wachhund.service
