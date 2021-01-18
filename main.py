@@ -12,6 +12,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import sys
 import os
 import subprocess
 import time
@@ -70,13 +71,17 @@ def prettify(commit):
 def getcommits(f):
     f.seek(0)
     last = f.read().rstrip('\n')
-    commits = subprocess.run(["git", "--git-dir=" + c.GIT_DIR, "log",
-      "--oneline", "--no-decorate", "origin/master", "--"] + c.WATCHDIRS,
-      stdout=subprocess.PIPE, text=True)
-
-    newest = commits.stdout.split('\n')[0].split(" ", 1)[0]
+    try:
+        subprocess.run(["git", "--git-dir={}".format(c.GIT_DIR), "fetch", "origin"], check=True)
+        commits = subprocess.run(["git", "--git-dir=" + c.GIT_DIR, "log",
+          "--oneline", "--no-decorate", "origin/master", "--"] + c.WATCHDIRS,
+          stdout=subprocess.PIPE, text=True)
+    except Exception as e:
+        print(e, file = sys.stderr)
+        return []
 
     changes = []
+    newest = commits.stdout.split('\n')[0].split(" ", 1)[0]
     for line in commits.stdout.split('\n'):
         commit = line.split(" ", 1)
         if commit[0] == last:
