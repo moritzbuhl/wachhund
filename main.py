@@ -75,7 +75,7 @@ def getcommits(f):
         subprocess.run(["git", "--git-dir={}".format(c.GIT_DIR), "fetch", "origin"], check=True)
         commits = subprocess.run(["git", "--git-dir=" + c.GIT_DIR, "log",
           "--oneline", "--no-decorate", "origin/master", "--"] + c.WATCHDIRS,
-          stdout=subprocess.PIPE, text=True)
+          stdout=subprocess.PIPE, text=True, check=True)
     except Exception as e:
         print(e, file = sys.stderr)
         return []
@@ -85,7 +85,10 @@ def getcommits(f):
     for line in commits.stdout.split('\n'):
         commit = line.split(" ", 1)
         if commit[0] == last:
-            break;
+            break
+        if line == '':
+            print("error: hash not found.", file = sys.stderr)
+            return []
         changes.append(line)
 
     f.seek(0)
