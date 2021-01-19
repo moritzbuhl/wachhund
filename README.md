@@ -1,6 +1,6 @@
 # wachhund
 
-A [Matrix](https://matrix.org) bot to watch git repository changes.
+A [Matrix](https://matrix.org) bot to track git repository changes.
 
 # Running
 
